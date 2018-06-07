@@ -30,8 +30,6 @@ public:
 
     Vector() {
         used = 0;
-        // create a reference to the array in use
-        items= new T[capacity]; 
     }
     //     ~Vector() { delete[]items;}
 
@@ -49,8 +47,7 @@ public:
     }
 
     iterator insert(iterator position, const T& item) {
- 
-        checkSize(); // see if there is enough room in the array
+
         iterator i = items + used; //the memory of the last item
         iterator temp;
 
@@ -67,62 +64,28 @@ public:
     }
 
     iterator update(iterator position, const T& item) {
-        
         // update (replace and existing entry)
         *position = item; // add the new item
 
     }
-
-    T& get(iterator position) {
-        return *position;
+    
+    T& get(iterator position){
+     return *position ;  
     }
+    
 
-    void checkSize() {
-        /*
-         * When trying to insert a new item into the array, make sure the array
-         * is large enough.
-         * When the space runs out, allocate a new block that's twice as large, 
-         * copy all of the old values into the new space, then delete the 
-         * old block.
-         */
-
-        // Check size of array and increase if required by copying to a new array
-        if (used >= capacity-1) {
-
-            // if size exceeds the limit of the array double it 
-
-            capacity = capacity * 2;
-//          items= new T[capacity]; 
-             T* itemsTemp = new T[capacity];
-            
-                        //copy to a new array of double the size
-            int i;
-            for(i=0;i<=used;++i){
-                itemsTemp[i]=items[i];
-            }
-            
-            // dispose of old array
-            delete[] items;
-            
-            // point to new array
-                         items = itemsTemp;
-                         // copy back
-//             for(i=0;i<=used;++i){
-//                items[i]=itemsTemp[i];
-//            }
-            
-        }
-    }
+//    friend ostream& operator<<(ostream& out, Vector& d);
+//    {
+//        for (Vector::iterator i = d.begin(); i != d.end(); i++) {
+//            out << *i << " ";
+//        }
+//        return out;
+//    }
 
 private:
-
-    int used; // the actual number of used elements
-    int capacity = 1000; //max number of elements before increasing
-    T* items;
- //   T items[3]; //Original array
- //  T* itemsTemp; //Temp array to grow
+    T items[10000];
+    int used;
 
 
 };
 #endif /* WORDVECTOR_H */
-
